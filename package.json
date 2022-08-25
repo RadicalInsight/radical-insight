@@ -4,10 +4,12 @@
   "license": "GPL-3.0-or-later",
   "scripts": {
     "clean": "rimraf dist/ node_modules/",
-    "clean:lock": "rimraf dist/ node_modules/ package-lock.json",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "build:common": "nx common common:build",
+    "lint:common": "nx common common:lint",
+    "test:common": "nx common common:test --parallel --watch"
   },
   "private": true,
   "dependencies": {
