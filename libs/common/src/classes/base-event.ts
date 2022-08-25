@@ -48,4 +48,8 @@ export class BaseEvent {
 
   @IsISO8601()
   lastModifiedOn: string;
+
+  constructor(data: Partial<BaseEvent>) {
+    Object.assign(this, data);
+  }
 }
