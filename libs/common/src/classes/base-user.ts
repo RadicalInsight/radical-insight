@@ -11,4 +11,8 @@ export class BaseUser {
   @MinLength(12)
   @MaxLength(120)
   password: string;
+
+  constructor(data: Partial<BaseUser>) {
+    Object.assign(this, data);
+  }
 }

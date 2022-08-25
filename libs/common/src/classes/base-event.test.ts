@@ -13,26 +13,35 @@ const testParams = {
   lastModifiedOn: "2022-01-01T00:00:00-05:00",
 };
 
-describe("BaseEvent", () => {
+describe("BaseEvent constructor", () => {
   it("passes validation for all properties", () => {
     validate(new BaseEvent(testParams)).then((result) => {
-      expect(result).toBe;
+      expect(result).toHaveLength(0);
     });
   });
 
-  it.each`
-    property            | value
-    ${"user"}           | ${null}
-    ${"timestamp"}      | ${"1 Jan 2022, 12:00:00 AM"}
-    ${"value"}          | ${0}
-    ${"type"}           | ${"something else"}
-    ${"trackMethod"}    | ${"not a valid method"}
-    ${"createdOn"}      | ${123}
-    ${"lastModifiedOn"} | ${"abc"}
-  `("fails validation when $property is $value", ({ property, value }) => {
+  it("passes validation when missing optional `note` prop", () => {
     const newParams = {
       ...testParams,
-      [property]: value,
+      note: undefined,
+    };
+    validate(new BaseEvent(newParams)).then((result) => {
+      expect(result).toHaveLength(0);
+    });
+  });
+
+  it.each([
+    "user",
+    "timestamp",
+    "value",
+    "type",
+    "trackMethod",
+    "createdOn",
+    "lastModifiedOn",
+  ])("fails validation when missing required `%s` prop", (property) => {
+    const newParams = {
+      ...testParams,
+      [property]: undefined,
     };
     validate(new BaseEvent(newParams)).then((result) => {
       console.log(result[0]);
