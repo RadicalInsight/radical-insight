@@ -9,7 +9,7 @@
     "test": "nx test",
     "build:common": "nx common common:build",
     "lint:common": "nx common common:lint",
-    "test:common": "nx common common:test --parallel --watch"
+    "test:common": "nx common common:test --parallel"
   },
   "private": true,
   "dependencies": {
