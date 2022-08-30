@@ -5,7 +5,9 @@
     "module": "commonjs",
     "types": ["node"],
     "emitDecoratorMetadata": true,
-    "target": "es2020"
+    "target": "es2020",
+    "composite": true,
+    "declaration": true
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts"]
