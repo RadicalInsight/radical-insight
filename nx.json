@@ -31,7 +31,7 @@
       ]
     }
   },
-  "defaultProject": "server",
+  "defaultProject": "api",
   "generators": {
     "@nrwl/react": {
       "application": {

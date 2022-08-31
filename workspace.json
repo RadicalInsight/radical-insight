@@ -2,9 +2,9 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "client": "apps/client",
-    "client-e2e": "apps/client-e2e",
+    "api": "apps/api",
     "common": "libs/common",
-    "server": "apps/server"
+    "web": "apps/web",
+    "web-e2e": "apps/web-e2e"
   }
 }
