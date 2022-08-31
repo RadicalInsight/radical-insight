@@ -7,9 +7,11 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "build:common": "nx common common:build",
-    "lint:common": "nx common common:lint",
-    "test:common": "nx common common:test --parallel"
+    "api:serve:dev": "NODE_ENV=development nx api api:serve",
+    "api:test": "nx api api:test --parallel",
+    "common:build": "nx common common:build",
+    "common:lint": "nx common common:lint",
+    "common:test": "nx common common:test --parallel"
   },
   "private": true,
   "dependencies": {

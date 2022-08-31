@@ -1,19 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { User, UserSchema } from './schemas/user.schema';
-import {
-  closeInMemoryDbConnection,
-  rootMongooseTestModule,
-} from '../../test/utils/rootMongooseTestModule';
 
-import { CreateUserDtoStub } from './../../test/stubs/createUserDto.stub';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { MongooseModule } from '@nestjs/mongoose';
 import { NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { users } from '../../test/data/users';
 
 describe('UsersService', () => {
+  let mongod: MongoMemoryServer;
   let service: UsersService;
-  const createuserDtoStub = CreateUserDtoStub();
+  const { william } = users.valid;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -21,7 +18,7 @@ describe('UsersService', () => {
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
         MongooseModule.forRootAsync({
           useFactory: async () => {
-            const mongod = await MongoMemoryServer.create();
+            mongod = await MongoMemoryServer.create();
             const mongoUri = mongod.getUri();
             return {
               uri: mongoUri,
@@ -36,12 +33,12 @@ describe('UsersService', () => {
   });
 
   afterAll(async () => {
-    await closeInMemoryDbConnection();
+    await mongod.stop();
   });
 
   describe('create()', () => {
     it('should save valid user', async () => {
-      service.create(createuserDtoStub).then((result) => {
+      service.create(william).then((result) => {
         expect(result).toHaveProperty('_id');
       });
     });

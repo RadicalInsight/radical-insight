@@ -9,6 +9,6 @@
     "composite": true,
     "declaration": true
   },
-  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "exclude": ["jest.config.ts", "**/*.spec.ts", "../../libs/common/**/*.spec.ts"],
+  "include": ["**/*.ts", "../../libs/common"]
 }
