@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/client",
+  "sourceRoot": "apps/web",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,12 +10,12 @@
       ],
       "defaultConfiguration": "production",
       "options": {
-        "root": "apps/client",
-        "outputPath": "dist/apps/client"
+        "root": "apps/web",
+        "outputPath": "dist/apps/web"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/client"
+          "outputPath": "apps/web"
         },
         "production": {}
       }
@@ -24,16 +24,16 @@
       "executor": "@nrwl/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "client:build",
+        "buildTarget": "web:build",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "client:build:development",
+          "buildTarget": "web:build:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "client:build:production",
+          "buildTarget": "web:build:production",
           "dev": false
         }
       }
@@ -41,16 +41,16 @@
     "export": {
       "executor": "@nrwl/next:export",
       "options": {
-        "buildTarget": "client:build:production"
+        "buildTarget": "web:build:production"
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": [
-        "coverage/apps/client"
+        "coverage/apps/web"
       ],
       "options": {
-        "jestConfig": "apps/client/jest.config.ts",
+        "jestConfig": "apps/web/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -61,7 +61,7 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "apps/client/**/*.{ts,tsx,js,jsx}"
+          "apps/web/**/*.{ts,tsx,js,jsx}"
         ]
       }
     }
