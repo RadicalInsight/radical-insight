@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "clean": "rimraf dist/ node_modules/",
+    "clean": "rimraf coverage/ dist/ node_modules/",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
