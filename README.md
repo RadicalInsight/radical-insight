@@ -23,7 +23,7 @@ This project uses Nx to manage multiple interdependent packages and applications
 
 ### /apps
 
-This is where deployable applications live. Server, apis, clients, etc.
+This is where deployable applications live. Api, clients, etc.
 
 ### /libs
 
