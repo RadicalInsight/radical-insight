@@ -14,7 +14,9 @@ import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private user: Model<UserDocument>) {}
+  constructor(
+    @InjectModel(User.name) private readonly user: Model<UserDocument>
+  ) {}
 
   private hashPassword(password: string): string {
     return bcrypt.hash(password, 12, (err, hash) => {
@@ -25,7 +27,7 @@ export class UsersService {
     });
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<UserDocument> {
     const { name, email, password } = createUserDto;
     const passwordHash = this.hashPassword(password);
     const newUser = new this.user({
@@ -34,27 +36,21 @@ export class UsersService {
       password: passwordHash,
     });
 
-    return await newUser.save();
-
-    // return this.user
-    //   .create({
-    //     name: name,
-    //     email: email,
-    //     password: passwordHash,
-    //   })
-    //   .then((result) => {
-    //     return result;
-    //   })
-    //   .catch((err) => {
-    //     throw new InternalServerErrorException(err);
-    //   });
+    return newUser
+      .save()
+      .then((result) => {
+        return result;
+      })
+      .catch((err) => {
+        return err;
+      });
   }
 
-  async findAll() {
+  async findAll(): Promise<UserDocument[]> {
     return await this.user.find().exec();
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<UserDocument> {
     const foundUser = await this.user.findById(id).exec();
     if (!foundUser) {
       throw new NotFoundException();
@@ -62,7 +58,10 @@ export class UsersService {
     return foundUser;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(
+    id: string,
+    updateUserDto: UpdateUserDto
+  ): Promise<UserDocument> {
     const updateUserParams = updateUserDto;
     if (updateUserParams.password) {
       updateUserParams.password = this.hashPassword(updateUserParams.password);
@@ -73,6 +72,6 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    return await this.user.findByIdAndRemove(id);
+    return await this.user.findByIdAndRemove(id).exec();
   }
 }

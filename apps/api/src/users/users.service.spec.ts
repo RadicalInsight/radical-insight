@@ -38,9 +38,8 @@ describe('UsersService', () => {
 
   describe('create()', () => {
     it('should save valid user', async () => {
-      service.create(william).then((result) => {
-        expect(result).toHaveProperty('_id');
-      });
+      const result = await service.create(william);
+      expect(result).toHaveProperty('_id');
     });
   });
 
