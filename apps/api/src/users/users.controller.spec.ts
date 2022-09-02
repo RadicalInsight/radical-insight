@@ -37,4 +37,10 @@ describe('UsersController', () => {
     controller.update(objectId, william);
     expect(serviceUpdate).toBeCalledWith(objectId, william);
   });
+
+  it('should call UsersService.remove() with valid ObjectId', () => {
+    const serviceRemove = jest.spyOn(service, 'remove');
+    controller.remove(objectId);
+    expect(serviceRemove).toBeCalledWith(objectId);
+  });
 });
