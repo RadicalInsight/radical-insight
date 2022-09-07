@@ -1,10 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -14,17 +10,14 @@ import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class UsersService {
+  saltRounds = 12;
+
   constructor(
     @InjectModel(User.name) private readonly user: Model<UserDocument>
   ) {}
 
   private hashPassword(password: string): string {
-    return bcrypt.hash(password, 12, (err, hash) => {
-      if (err) {
-        throw new InternalServerErrorException(err);
-      }
-      return hash;
-    });
+    return bcrypt.hashSync(password, this.saltRounds);
   }
 
   async create(createUserDto: CreateUserDto): Promise<UserDocument> {
@@ -44,10 +37,6 @@ export class UsersService {
       .catch((err) => {
         return err;
       });
-  }
-
-  async findAll(): Promise<UserDocument[]> {
-    return await this.user.find().exec();
   }
 
   async findOne(id: string): Promise<UserDocument> {
@@ -72,6 +61,6 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    return await this.user.findByIdAndRemove(id).exec();
+    await this.user.findByIdAndRemove(id).exec();
   }
 }

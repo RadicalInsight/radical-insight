@@ -6,7 +6,7 @@ import { createMock } from '@golevelup/ts-jest';
 
 describe('UsersController', () => {
   const { objectId } = testData.sundries;
-  const { william } = testData.users.valid;
+  const { william } = testData.users;
   let controller: UsersController;
   let service: UsersService;
 
@@ -16,14 +16,8 @@ describe('UsersController', () => {
   });
   it('should call UsersService.create() with valid user input', () => {
     const serviceCreate = jest.spyOn(service, 'create');
-    controller.create(william);
-    expect(serviceCreate).toBeCalledWith(william);
-  });
-
-  it('should call UsersService.findAll()', () => {
-    const serviceFindAll = jest.spyOn(service, 'findAll');
-    controller.findAll();
-    expect(serviceFindAll).toBeCalled();
+    controller.create(william.createUserDto);
+    expect(serviceCreate).toBeCalledWith(william.createUserDto);
   });
 
   it('should call UsersService.findOne() with valid ObjectId', () => {
@@ -34,8 +28,8 @@ describe('UsersController', () => {
 
   it('should call UsersService.update() with valid ObjectId and user input', () => {
     const serviceUpdate = jest.spyOn(service, 'update');
-    controller.update(objectId, william);
-    expect(serviceUpdate).toBeCalledWith(objectId, william);
+    controller.update(objectId, william.createUserDto);
+    expect(serviceUpdate).toBeCalledWith(objectId, william.createUserDto);
   });
 
   it('should call UsersService.remove() with valid ObjectId', () => {

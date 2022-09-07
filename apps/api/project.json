@@ -13,6 +13,10 @@
         "assets": ["apps/api/src/assets"]
       },
       "configurations": {
+        "development": {
+          "buildLibsFromSource": true,
+          "watch": true
+        },
         "production": {
           "optimization": true,
           "extractLicenses": true,
@@ -32,6 +36,9 @@
         "buildTarget": "api:build"
       },
       "configurations": {
+        "development": {
+          "buildTarget": "api:build:development"
+        },
         "production": {
           "buildTarget": "api:build:production"
         }
